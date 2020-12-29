@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:fragment="head">
+        <title>Plantilla</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <!--No se usara jquery en el proyecto, pero dado que bootstrap usa varios elementos de este para su funcionalidad
+        hay que anexarlo-->
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    </head>
+    <body>
+        <header th:fragment="header">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+                <div class="container">
+                    <a th:href="@{/}" class="navbar-brand" th:text="#{plantilla.titulo}">Control Clientes</a>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item px-2">
+                                <a th:href="@{/}" class="nav-link active" th:text="#{barra.titulo}"></a>
+                            </li>
+                        </ul>
+                        <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+                            <li class="nav-item mr-3">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-user"></i>
+                                    <span th:text="#{barra.bienvenido}">Bienvenido</span>
+                                    <span sec:athentication="name">Usuario</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="POST" th:action="@{/logout}">
+                                    <a href="#" onclick="this.parentNode.submit();" class="nav-link">
+                                        <i class="fas fa-user-times"></i>[[#{barra.salir}]]
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <section id="main-header" class="py-2 bg-info text white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>
+                                <i class="fas fa-cog"></i>[[#{plantilla.titulo}]]
+                            </h1>
+                        </div>
+                    </div>
+                </div>                
+            </section>
+        </header>
+
+        <footer th:fragment="footer" class="bg-warning text-white mt-5 p-5">
+
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">
+                        <!--Se agrega el idioma con @al ser una query y se le agrega lang=es y lang=en para cambiar de idioma-->
+                        <a th:href="@{/(lang=es)}">ES</a>
+                        <a th:href="@{/(lang=en)}">EN</a> 
+                        <span>[[#{plantilla.pie-pagina}]] &copy; <a href="http://www.globalmentoring.com.mx" target="_blank">Global Mentoring</a></span>
+                    </p>
+                </div>
+            </div>
+            <!--Con target le estamos indicando que cuando se presione el link, en vez de abrirse sobre la
+            misma pestania abra una nueva-->
+            <!--Esta es otra forma de agregar un atributo del archivo de messages.properties, de esta forma
+            no quita por completo el contenido de la etiqueta, sino solo se cambia la posicion de donde
+            esta insertada por el texto-->
+        </footer>
+    </body>
+</html>
