@@ -36,6 +36,12 @@ public class ControladorInicio {
         log.info("Ejecutando el controlador Spring MVC");
         log.info("Usuario que hizo login:" + user);
         model.addAttribute("personas", personas);
+        Double saldoTotal = 0D;
+        for(Persona p : personas){
+            saldoTotal += p.getSaldo();
+        }
+        model.addAttribute("saldoTotal", saldoTotal);
+        model.addAttribute("totalClientes", personas.size());
         return "index";
     }
 

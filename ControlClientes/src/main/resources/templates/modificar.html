@@ -1,47 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
         <title>Datos de la persona</title>
         <meta charset="UTF-8"/>
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"/>
-        <h2>[[#{persona.formulario}]]</h2>
-        <a th:href="@{/}">[[#{accion.regresar}]]</a>
-        <br/>
-        <!--El el metodo Post enviara a InicioControlador un metodo tipo post y este controlador
-        la recibira con un metodo PostMapping guardar-->
-        <form th:action="@{/guardar}" method="post" th:object="${persona}">
-            
-            <!--Estamos agregando este campo oculto para obtener el id del objeto de persona inyectado
-            y al momento de que la base de datos encuentre este id en la base de datos, en vez de agregar
-            el campo, actualizara el campo si es que ya existe el id dado-->
-            <input type="hidden" name="idPersona" id="idPersona" th:field="*{idPersona}"/>
-            
-            <label for="nombre">[[#{persona.nombre}]]:</label>
-            <!--Con asterisco estamos seleccionando el atributo del objeto asociado al formulario, en este caso, 
-            el objeto persona-->
-            <input type="text" name="nombre" id="nombre" th:field="*{nombre}"/>
-            <!--Con $ accedemos a funcion dentro de los corchetes, se usa #fields para preguntar si alguno de los
-            campos (en este caso, el campo de nombre) del formulario contiene errores (o sea, un campo vacio seria 
-            un error) y con th:errors estamos obteniendo el error del campo de nombre-->
-            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
-            <br/>
-            <label for="apellido">[[#{persona.apellido}]]: </label>
-            <input type="text" name="apellido" id="apellido" th:field="*{apellido}"/>
-            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error apellido</span>
-            <br/>
-            <label for="email">[[#{persona.email}]]: </label>
-            <input type="text" name="email" id="email" th:field="*{email}"/>
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error email</span>
-            <br/>
-            <label for="telefono">[[#{persona.telefono}]]:</label>
-            <input type="tel" name="telefono" id="telefono" th:field="*{telefono}"/>
-            <br/>
-            <input type="submit" name="guardar" th:value="#{accion.guardar}"/>
-        </form>
-        
-        
-        <footer th:replace="layout/plantilla :: footer"/>
+        <section th:replace="layout/editarCliente :: editarCliente"></section>
+        <footer th:replace="layout/plantilla :: footer"/>            
+
+
     </body>
 </html>

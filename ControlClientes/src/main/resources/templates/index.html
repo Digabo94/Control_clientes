@@ -15,40 +15,10 @@ and open the template in the editor.
     <body>
         <!--Aqui estamos accediendo al header del archivo de plantilla-->
         <header th:replace="layout/plantilla :: header"/>
-        <!--Link con thymeleaf a agregar persona-->
-        <!--con sec:authorize estamos verificando que si el usuario que ingreso tiene permisos de administrador, puede ver
-        el contenido de esa etiqueta, si no, no puede-->
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" th:text="#{persona.crear}"></a>
-        <div th:if="${personas != null and !personas.empty}"> 
-            <table style="border: 1">
-                <tr>
-                    <th>[[#{persona.nombre}]]</th>
-                    <th>[[#{persona.apellido}]]</th>
-                    <th>[[#{persona.email}]]</th>
-                    <th>[[#{persona.telefono}]]</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
-                </tr>
-                <!--Con el each podemos iterar todos los elementos dentro de nuestra lista personas-->
-                <tr th:each="persona : ${personas}">
-                    <td th:text="${persona.nombre}"></td>
-                    <td th:text="${persona.apellido}"></td>
-                    <td th:text="${persona.email}"></td>
-                    <td th:text="${persona.telefono}"></td>
-                    <!--A el path de editar se le esta concatenando el idPersona, por ello editar tiene 
-                    slash al inicio y al final-->
-                    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${persona.idPersona}" th:text="#{accion.editar}"/></td>
-
-                    <!--Esta es otra forma de usar el atributo idPersona-->
-                    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/borrar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"/></td>
-                </tr>
-            </table>
-        </div>
-        <div th:if="${personas == null or personas.empty}">
-            [[#{persona.lista-vacia}]]
-        </div>
-
-        <!--Aqui estamos insertando el footer de la plantilla-->
+        <section th:replace="layout/botonesAgregar :: botonesAgregar"></section>
+        <section th:replace="layout/agregarCliente :: agregarCliente"></section>
+        <section th:replace="layout/listadoClientes :: listadoClientes"></section>
         <footer th:replace="layout/plantilla :: footer"/>
+
     </body>
 </html>

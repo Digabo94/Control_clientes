@@ -5,16 +5,43 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <!--Este Logi se agregara al WebConfig-->
-        <h1>Login</h1>
+        <header th:replace="layout/plantilla :: header"></header>
+        <!--Este Login se agregara al WebConfig-->
+        <section id="actions" class="py-4 mb-6 bg-light">
+            <div class="container">
+                <div class="row">
+
+                </div>
+            </div>
+        </section>
+
+        <section id="login">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 >Login</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" th:action="@{/login}">
+                                    <div class="form-group">
+                                        <label for="username">Username:</label> 
+                                        <input type="text" name="username" id="username"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" name="password" id="password"/>
+                                    </div>
+                                    <input type="submit" value="Login" class="btn btn-primary btn-block"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <form method="POST" th:action="@{/login}">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username"/>
-            <br/>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password"/>
-            <input type="submit" value="Login"/>
-        </form>
+        <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>
